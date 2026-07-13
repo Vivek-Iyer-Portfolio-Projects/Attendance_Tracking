@@ -1,11 +1,9 @@
 package com.dxb.attendance.repository;
 
-import com.dxb.attendance.model.Employee;
+import com.dxb.attendance.model.Attendance;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface EmployeeRepository extends JpaRepository<Employee, Long> {
-    // Custom method to find an employee by their device ID
-    Employee findByRegisteredDevice(String registeredDevice);
+public interface AttendanceRepository extends JpaRepository<Attendance, Long> {
 }
