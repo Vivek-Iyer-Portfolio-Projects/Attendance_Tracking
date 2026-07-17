@@ -7,27 +7,35 @@ Designed with a security-first mindset, the system validates clock-in attempts b
 
 **Author:** Vivek Gopalkrishna Iyer
 
-## 🏗️ System Architecture
-This repository is structured as a full-stack application, currently featuring a completed backend API. 
+## 🏗️ System Architecture (Monorepo)
+This repository is structured as a full-stack monorepo, housing both the backend API and the native mobile frontend.
 
 *   **Backend:** Java 17, Spring Boot 3, Spring Data JPA
 *   **Database (DEV Environment):** H2 In-Memory Database (Zero-install, auto-seeded)
-*   **Build Tool:** Maven
+*   **Frontend (Mobile):** React Native (Community CLI), TypeScript
+*   **Native Modules:** iOS CocoaPods (`netinfo`, `geolocation`)
 *   **CI/CD:** GitHub Actions
 
-## 🚀 Current Progress: Phase 1 (Backend API Complete)
-The foundational Spring Boot REST API has been successfully built, compiled, and tested.
+## 🚀 Current Progress
 
+### Phase 1: Backend API (Complete)
 *   **Database Entities & Schema:** Modeled and mapped `Employees`, `Attendance`, and `Location_Logs` tables.
-*   **Automated Seeding:** Implemented `data.sql` to automatically populate the DEV environment with test data upon initialization.
-*   **Core Verification Logic:** Engineered the `AttendanceVerificationService` to calculate true spherical distance across the Earth's surface using the Haversine formula, ensuring accurate 100m geofence validation.
-*   **RESTful Endpoints:** Configured `AttendanceController` to serve backend data, currently exposing the `/api/attendance/employees` GET endpoint.
-*   **DevSecOps Pipeline:** Established a GitHub Actions YAML workflow to automate Maven builds and verify code integrity on every push to the `main` branch.
+*   **Automated Seeding:** Implemented `data.sql` to auto-populate the DEV environment with test data upon initialization.
+*   **Core Verification Logic:** Engineered the `AttendanceVerificationService` to calculate true spherical distance across the Earth's surface using the Haversine formula, ensuring accurate geofence validation.
+*   **RESTful Endpoints:** Configured `AttendanceController` to serve backend data (`/api/attendance/employees`).
+*   **DevSecOps Pipeline:** Established a GitHub Actions YAML workflow to automate Maven builds on every push to the `main` branch.
+
+### Phase 2: Mobile Application (In Progress)
+*   **Framework Initialization:** Scaffolded a modern React Native application.
+*   **Hardware Integration:** Linked native iOS hardware modules (`@react-native-community/netinfo` and `@react-native-community/geolocation`) to extract real-time Wi-Fi state and GPS coordinates.
+*   **Environment Configuration:** Successfully managed complex macOS environment paths, upgrading the system Ruby environment via Homebrew to compile CocoaPods and native Apple frameworks.
+*   **Monorepo Restructuring:** Resolved nested Git repository conflicts to maintain a single, clean version control timeline across the entire stack.
 
 ## 🛠️ How to Run Locally
+
+### 1. Start the Backend API
 1. Ensure Java 17+ is installed.
-2. Clone this repository.
-3. Navigate to the `/backend` directory.
-4. Run the following command:
+2. Navigate to the root directory, then run:
    ```bash
+   cd backend
    ./mvnw clean spring-boot:run
