@@ -26,8 +26,14 @@ export const submitSecureClockIn = async (payload: ClockInPayload) => {
       throw new Error(errorData || 'Server rejected the clock-in attempt.');
     }
 
-    const data = await response.json();
-    return data;
+const responseText = await response.text();
+try {
+  // Try to parse it as JSON
+  return JSON.parse(responseText);
+} catch (e) {
+  // If it fails, just return the plain text string (e.g. "Success")
+  return responseText;
+}
   } catch (error) {
     console.error('API Network Error:', error);
     throw error;
