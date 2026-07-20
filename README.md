@@ -11,7 +11,7 @@ Designed with a security-first mindset, the system validates clock-in attempts b
 This repository is structured as a full-stack monorepo, housing both the backend API and the native mobile frontend.
 
 *   **Backend:** Java 17, Spring Boot 3, Spring Data JPA
-*   **Database (DEV Environment):** H2 In-Memory Database (Zero-install, auto-seeded)
+*   **Database (DEV Environment):** H2 In-Memory Database
 *   **Frontend (Mobile):** React Native (Community CLI), TypeScript
 *   **Native Modules:** iOS CocoaPods (`netinfo`, `geolocation`)
 *   **CI/CD:** GitHub Actions
@@ -20,18 +20,28 @@ This repository is structured as a full-stack monorepo, housing both the backend
 
 ### Phase 1: Backend API (Complete)
 *   **Database Entities & Schema:** Modeled and mapped `Employees`, `Attendance`, and `Location_Logs` tables.
-*   **Automated Seeding:** Implemented `data.sql` to auto-populate the DEV environment with test data upon initialization.
 *   **Core Verification Logic:** Engineered the `AttendanceVerificationService` to calculate true spherical distance across the Earth's surface using the Haversine formula, ensuring accurate geofence validation.
-*   **RESTful Endpoints:** Configured `AttendanceController` to serve backend data (`/api/attendance/employees`).
+*   **Monorepo Optimization:** Reconfigured Tomcat server to listen on port `8082` to eliminate architecture collisions with frontend node environments.
 *   **DevSecOps Pipeline:** Established a GitHub Actions YAML workflow to automate Maven builds on every push to the `main` branch.
 
-### Phase 2: Mobile Application (In Progress)
-*   **Framework Initialization:** Scaffolded a modern React Native application.
-*   **Hardware Integration:** Linked native iOS hardware modules (`@react-native-community/netinfo` and `@react-native-community/geolocation`) to extract real-time Wi-Fi state and GPS coordinates.
+### Phase 2: Mobile Application (Complete)
+*   **Hardware Integration:** Linked native iOS hardware modules to extract real-time Wi-Fi state and high-accuracy GPS coordinates via custom TypeScript hooks.
+*   **Dynamic User Interface:** Built a state-driven enterprise UI featuring conditional rendering, disabling actions until secure hardware checks pass.
+*   **Network Layer:** Implemented a robust API service to transmit the hardware payload to the Spring Boot backend, elegantly handling both JSON and plain-text HTTP responses.
 *   **Environment Configuration:** Successfully managed complex macOS environment paths, upgrading the system Ruby environment via Homebrew to compile CocoaPods and native Apple frameworks.
-*   **Monorepo Restructuring:** Resolved nested Git repository conflicts to maintain a single, clean version control timeline across the entire stack.
 
-## 🛠️ How to Run Locally
+### Phase 3: Manager Dashboard (Upcoming)
+*   **Tech Stack:** Angular, TypeScript, TailwindCSS
+*   **Objective:** Develop a secure administrative web portal displaying real-time attendance summaries, audit logs, and compliance analytics.
+
+## 🛠️ Prerequisites
+Before running the application, ensure your environment has the following installed:
+*   **Java Development Kit (JDK):** Version 17 or higher
+*   **Node.js:** Version 18+ (LTS recommended)
+*   **Xcode:** Full installation from the Mac App Store (required for Apple system frameworks)
+*   **CocoaPods:** Native dependency manager for iOS (`sudo gem install cocoapods` or via Homebrew)
+
+## ⚙️ How to Run Locally
 
 ### 1. Start the Backend API
 1. Ensure Java 17+ is installed.
