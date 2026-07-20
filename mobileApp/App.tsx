@@ -1,3 +1,4 @@
+import { submitSecureClockIn } from './apiService';
 import React, { useState, useEffect } from 'react';
 import {
   SafeAreaView,
@@ -31,28 +32,33 @@ const App = () => {
     }
   };
 
-  const handleClockIn = () => {
-    if (error) {
-      Alert.alert("Verification Failed", error);
-      return;
-    }
-    if (!location || !wifiState) {
-      Alert.alert("Hold on", "Still acquiring hardware signals...");
-      return;
-    }
+const handleClockIn = async () => {
+  if (error) {
+    Alert.alert("Verification Failed", error);
+    return;
+  }
+  if (!location || !wifiState) {
+    Alert.alert("Hold on", "Still acquiring hardware signals...");
+    return;
+  }
 
-    // This perfectly matches the Java DTO your Spring Boot API expects!
-    const payload = {
-      employeeId: employeeId,
-      latitude: location.latitude,
-      longitude: location.longitude,
-      bssid: wifiState.bssid,
-      ssid: wifiState.ssid
-    };
-
-    console.log("PAYLOAD READY FOR SPRING BOOT:", payload);
-    Alert.alert("Secure Payload Generated", `Check your terminal to see the data for ${employeeId}!`);
+  const payload = {
+    employeeId: employeeId,
+    latitude: location.latitude,
+    longitude: location.longitude,
+    bssid: wifiState.bssid,
+    ssid: wifiState.ssid
   };
+
+  try {
+    // Send the payload to Spring Boot
+    const response = await submitSecureClockIn(payload);
+    Alert.alert("Success!", `Clock-in verified at ${new Date().toLocaleTimeString()}`);
+    console.log("Server Response:", response);
+  } catch (err: any) {
+    Alert.alert("Clock-In Rejected", err.message);
+  }
+};
 
   const handleLogout = () => {
     setIsLoggedIn(false);
