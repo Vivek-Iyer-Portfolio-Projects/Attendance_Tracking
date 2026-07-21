@@ -20,6 +20,16 @@ public class Attendance {
     private LocalDateTime clockOut; // Maps to ClockOut
     private Double workHours; // Maps to WorkHours
     private String status; // Maps to Status (e.g., Present, Outside Office)
+    
+public void setEmployee(Employee employee) {
+    this.employee = employee;
+}
 
-    // TODO: Right-click in VS Code -> Source Action -> Generate Getters and Setters
+public void setClockIn(LocalDateTime clockIn) {
+    this.clockIn = clockIn;
+}
+
+public void setStatus(String status) {
+    this.status = status;
+}
 }

@@ -13,7 +13,7 @@ import {
 import { useLocationVerification } from './useLocationVerification';
 
 const App = () => {
-  const [employeeId, setEmployeeId] = useState('');
+  const [employeeId, setEmployeeId] = useState('1');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   // Bring in our custom hardware logic
