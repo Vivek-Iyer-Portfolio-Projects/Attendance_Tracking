@@ -8,18 +8,19 @@ Designed with a security-first mindset, the system validates clock-in attempts b
 **Author:** Vivek Gopalkrishna Iyer
 
 ## 🏗️ System Architecture (Monorepo)
-This repository is structured as a full-stack monorepo, housing both the backend API and the native mobile frontend.
+This repository is structured as a full-stack monorepo, housing the backend API, native mobile application, and administrative web frontend.
 
 *   **Backend:** Java 17, Spring Boot 3, Spring Data JPA
 *   **Database (DEV Environment):** PostgreSQL (Relational persistence)
 *   **Frontend (Mobile):** React Native (Community CLI), TypeScript
+*   **Frontend (Web Dashboard):** Angular 19, Tailwind CSS v4, PostCSS
 *   **Native Modules:** iOS CocoaPods (`netinfo`, `geolocation`)
 *   **CI/CD:** GitHub Actions
 
-## 🚀 Current Progress
+## 🚀 Project Status
 
 ### Phase 1: Backend API (Complete)
-*   **Enterprise Persistence:** Transitioned from H2 in-memory to a full PostgreSQL relational database, establishing strict foreign key constraints between Employee and Attendance entities.
+*   **Enterprise Persistence:** Transitioned from H2 in-memory to a full PostgreSQL relational database, establishing strict foreign key constraints between `Employee` and `Attendance` entities.
 *   **Database Entities & Schema:** Modeled and mapped `Employees`, `Attendance`, and `Location_Logs` tables using Hibernate JPA.
 *   **Core Verification Logic:** Engineered the `AttendanceVerificationService` to calculate true spherical distance across the Earth's surface using the Haversine formula.
 *   **Monorepo Optimization:** Reconfigured Tomcat server to listen on port `8082` to eliminate architecture collisions with frontend node environments.
@@ -29,19 +30,24 @@ This repository is structured as a full-stack monorepo, housing both the backend
 *   **Hardware Integration:** Linked native iOS hardware modules to extract real-time Wi-Fi state and high-accuracy GPS coordinates via custom TypeScript hooks.
 *   **Dynamic User Interface:** Built a state-driven enterprise UI featuring conditional rendering, disabling actions until secure hardware checks pass.
 *   **Network Layer:** Implemented a robust API service to transmit the hardware payload to the Spring Boot backend, elegantly handling both JSON and plain-text HTTP responses.
-*   **Environment Configuration:** Successfully managed complex macOS environment paths, upgrading the system Ruby environment via Homebrew to compile CocoaPods and native Apple frameworks.
+*   **Environment Configuration:** Managed macOS environment paths and native Apple frameworks for simulator deployment.
 
-### Phase 3: Manager Dashboard (Upcoming)
-*   **Tech Stack:** Angular, TypeScript, TailwindCSS
-*   **Objective:** Develop a secure administrative web portal displaying real-time attendance summaries, audit logs, and compliance analytics.
+### Phase 3: Manager Dashboard (In Progress)
+*   **Framework Scaffolding:** Initialized Angular 19 workspace integrated into the monorepo structure (`/manager-dashboard`).
+*   **Modern Styling Engine:** Configured Tailwind CSS v4 and PostCSS for component utility styling.
+*   **REST Integration:** Connecting Angular `HttpClient` service to Spring Boot REST endpoints for real-time attendance logging and audit tracking.
+
+---
 
 ## 🛠️ Prerequisites
 Before running the application, ensure your environment has the following installed:
 *   **Java Development Kit (JDK):** Version 17 or higher
 *   **Node.js:** Version 18+ (LTS recommended)
-*   **Xcode:** Full installation from the Mac App Store (required for Apple system frameworks)
-*   **CocoaPods:** Native dependency manager for iOS (`sudo gem install cocoapods` or via Homebrew)
+*   **Angular CLI:** Version 19 (`npm install -g @angular/cli`)
 *   **PostgreSQL:** Version 14 or higher (`brew install postgresql@14` on macOS)
+*   **Xcode:** Full installation from the Mac App Store (required for Apple system frameworks)
+
+---
 
 ## ⚙️ How to Run Locally
 
@@ -51,7 +57,6 @@ Before running the application, ensure your environment has the following instal
 3. Ensure a test employee exists (e.g., ID `1`) in the `employees` table.
 
 ### 2. Start the Backend API
-1. Navigate to the root directory, then run:
-   ```bash
-   cd backend
-   ./mvnw clean spring-boot:run
+```bash
+cd backend
+./mvnw clean spring-boot:run
